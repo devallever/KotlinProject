@@ -53,3 +53,7 @@ fun higherFunTest1(a: Int, b: Int, block: (a: Int, b: Int) -> Int) {
 inline fun inlineHigherFunTest(block: () -> Unit) {
     block()
 }
+
+inline fun inlineHigherFunTest2(block: () -> Unit, noinline block2: () -> Unit) {
+
+}
