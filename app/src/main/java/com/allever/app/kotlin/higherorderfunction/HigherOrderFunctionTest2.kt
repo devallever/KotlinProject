@@ -27,7 +27,9 @@ fun main() {
         a + b
     }
 
-
+    inlineHigherFunTest {
+        val result = 1 + 1
+    }
 }
 
 fun baseFun() {
@@ -46,4 +48,8 @@ fun simpleHigherFunTest2(block: () -> Int) {
 
 fun higherFunTest1(a: Int, b: Int, block: (a: Int, b: Int) -> Int) {
     block(a, b)
+}
+
+inline fun inlineHigherFunTest(block: () -> Unit) {
+    block()
 }
