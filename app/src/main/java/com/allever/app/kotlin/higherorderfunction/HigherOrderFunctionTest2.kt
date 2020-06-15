@@ -1,6 +1,15 @@
 package com.allever.app.kotlin.higherorderfunction
 
 fun main() {
+    //传递函数
+    simpleHigherFunTest1(::baseFun)
+
+    //传递Lambda
+    val lambda = { }
+    simpleHigherFunTest1(lambda)
+    simpleHigherFunTest1({})
+    simpleHigherFunTest1 {  }
+
     //lambda参数方式传入
     val lambdaResult = {
         1 + 1
@@ -10,10 +19,19 @@ fun main() {
         1 + 1
     }
 
-    val lambda = { }
-    simpleHigherFunTest1(lambda)
-    simpleHigherFunTest1({})
-    simpleHigherFunTest1 {  }
+    higherFunTest1(1, 2, { a: Int, b: Int ->
+        a + b
+    })
+
+    higherFunTest1(1, 2) {a, b ->
+        a + b
+    }
+
+
+}
+
+fun baseFun() {
+
 }
 
 fun simpleHigherFunTest1(block: () -> Unit) {
@@ -24,4 +42,8 @@ fun simpleHigherFunTest1(block: () -> Unit) {
 fun simpleHigherFunTest2(block: () -> Int) {
     //执行Lambda代码块
     block()
+}
+
+fun higherFunTest1(a: Int, b: Int, block: (a: Int, b: Int) -> Int) {
+    block(a, b)
 }
