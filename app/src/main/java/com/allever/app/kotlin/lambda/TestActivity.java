@@ -22,6 +22,11 @@ public class TestActivity extends AppCompatActivity {
         }.start();
 
 
+        //Lambda语法
+        /***
+         * (String s, Integer i) -> { }
+         * 简写 (s, i) -> { }
+         */
         Lamda lamda = new Lamda();
         lamda.setOnClickListener(() -> System.out.println("hello"));
 
