@@ -26,6 +26,8 @@ fun main() {
 
     asyncForResultTest()
     asyncForResultTest2()
+    withContextCoroutineTest()
+    Thread.sleep(1000)
     println("run on main")
 }
 
@@ -133,5 +135,15 @@ fun asyncForResultTest2() {
         println("result = $result")
         val end = System.currentTimeMillis()
         println("用时 = ${end - start}")
+    }
+}
+
+fun withContextCoroutineTest() {
+    mGlobalCoroutineScope.launch {
+        val result = withContext(Dispatchers.Default) {
+            println("run on withContext")
+            1 + 1
+        }
+        println("result = $result")
     }
 }
