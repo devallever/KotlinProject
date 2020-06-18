@@ -1,6 +1,10 @@
 package com.allever.app.kotlin.coroutine
 
 import kotlinx.coroutines.*
+import java.lang.RuntimeException
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 private val mCoroutineJob = Job()
 private val mGlobalCoroutineScope = CoroutineScope(mCoroutineJob)
@@ -27,6 +31,9 @@ fun main() {
     asyncForResultTest()
     asyncForResultTest2()
     withContextCoroutineTest()
+    mGlobalCoroutineScope.launch {
+        requestTest()
+    }
     Thread.sleep(1000)
     println("run on main")
 }
@@ -146,4 +153,43 @@ fun withContextCoroutineTest() {
         }
         println("result = $result")
     }
+}
+
+
+suspend fun requestTest() {
+    netCallBackTest("url", object : NetCallback {
+        override fun onSuccess() {
+
+        }
+        override fun onFail() {
+
+        }
+    })
+
+    val result = netCallBackTestWithSuspendCoroutine("url")
+    println("net result = $result")
+}
+
+fun netCallBackTest(address: String, callback: NetCallback) {
+    callback.onSuccess()
+}
+
+suspend fun netCallBackTestWithSuspendCoroutine(url: String): String {
+    return suspendCoroutine { continuation ->
+        netCallBackTest(url, object : NetCallback {
+            override fun onSuccess() {
+                continuation.resume("request success")
+            }
+
+            override fun onFail() {
+                continuation.resumeWithException(RuntimeException("request fail"))
+            }
+        })
+    }
+
+}
+
+interface NetCallback {
+    fun onSuccess()
+    fun onFail()
 }
