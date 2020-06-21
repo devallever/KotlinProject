@@ -1,5 +1,7 @@
 package com.allever.app.kotlin.coroutine
 
+import com.allever.app.kotlin.coroutine.retrofit.HttpListener
+import com.allever.app.kotlin.coroutine.retrofit.HttpUtil
 import kotlinx.coroutines.*
 
 /***
@@ -25,6 +27,12 @@ fun main() {
     coroutineResultWithAsync2()
 
     withContextCoroutine()
+
+    simpleHttpRequest()
+
+    runBlocking {
+        requestHttp()
+    }
 }
 
 private fun globalScopeLaunch() {
@@ -194,5 +202,28 @@ fun withContextCoroutine() {
             5 + 5
         }
     }
+}
 
+fun simpleHttpRequest() {
+    val address = "http:..."
+    HttpUtil.request(address, object :
+        HttpListener {
+        override fun onSuccess(result: String) {
+
+        }
+
+        override fun onFailed(e: Exception) {
+
+        }
+    })
+}
+
+suspend fun requestHttp() {
+    try {
+        val address = "baidu.com"
+        val result = HttpUtil.requestWithSuspendCoroutine(address)
+        println(result)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }
