@@ -2,6 +2,9 @@ package com.allever.app.kotlin.coroutine
 
 import kotlinx.coroutines.*
 
+private val mCoroutineJob = Job()
+private val mGlobalCoroutineScope = CoroutineScope(mCoroutineJob)
+
 fun main() {
     globalCoroutineLaunchTest()
     runBlockingTest()
@@ -10,6 +13,16 @@ fun main() {
         createCoroutineWithCoroutineScopeTest()
     }
     createCoroutineWithCoroutineScopeTest2()
+    mGlobalCoroutineScope.launch {
+        delay(1000)
+        println("run on mGlobalCoroutineScope 1")
+    }
+    mGlobalCoroutineScope.launch {
+        delay(1500)
+        println("run on mGlobalCoroutineScope 2")
+    }
+    mCoroutineJob.cancel()
+    Thread.sleep(2000)
     println("run on main")
 }
 
