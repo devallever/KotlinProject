@@ -1,14 +1,15 @@
 package com.allever.app.kotlin.coroutine
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 fun main() {
     globalCoroutineLaunchTest()
     runBlockingTest()
     launchCoroutineTest()
+    runBlocking {
+        createCoroutineWithCoroutineScopeTest()
+    }
+    createCoroutineWithCoroutineScopeTest2()
     println("run on main")
 }
 
@@ -52,4 +53,25 @@ fun noneSuspendFunTest() {
 suspend fun suspendFunTest() {
     delay(1000)
     println("run on suspend fun")
+}
+
+suspend fun createCoroutineWithCoroutineScopeTest()  = coroutineScope {
+    launch {
+        println("run on coroutineScope")
+    }
+}
+
+fun createCoroutineWithCoroutineScopeTest2() {
+    runBlocking {
+        coroutineScope {
+            delay(1000)
+            println("run on coroutineScope 1")
+        }
+
+        coroutineScope {
+            delay(1000)
+            println("run on coroutineScope 2")
+        }
+        println("run on outer coroutine")
+    }
 }
