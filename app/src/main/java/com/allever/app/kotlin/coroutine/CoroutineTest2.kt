@@ -32,10 +32,24 @@ fun launchCoroutineTest() {
     runBlocking {
         launch {
             println("run on launch 1")
+            suspendFunTest()
+            noneSuspendFunTest()
         }
 
         launch {
             println("run on launch 2")
+            suspendFunTest()
+            noneSuspendFunTest()
         }
     }
+}
+
+fun noneSuspendFunTest() {
+    //deley(1000)
+    println("cant run on suspend fun")
+}
+
+suspend fun suspendFunTest() {
+    delay(1000)
+    println("run on suspend fun")
 }
