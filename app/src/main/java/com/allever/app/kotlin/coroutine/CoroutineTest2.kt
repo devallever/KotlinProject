@@ -6,9 +6,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() {
-    runBlockingTest()
     globalCoroutineLaunchTest()
-    Thread.sleep(1000)
+    runBlockingTest()
+    launchCoroutineTest()
     println("run on main")
 }
 
@@ -23,7 +23,19 @@ fun globalCoroutineLaunchTest() {
 fun runBlockingTest() {
     //阻塞当前线程
     runBlocking {
-        delay(3000)
+        delay(1000)
         println("run on runBlocking")
+    }
+}
+
+fun launchCoroutineTest() {
+    runBlocking {
+        launch {
+            println("run on launch 1")
+        }
+
+        launch {
+            println("run on launch 2")
+        }
     }
 }
