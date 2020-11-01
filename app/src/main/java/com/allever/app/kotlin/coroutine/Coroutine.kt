@@ -5,7 +5,7 @@ import com.allever.app.kotlin.coroutine.retrofit.HttpUtil
 import kotlinx.coroutines.*
 
 /***
- * Coroutine 协程
+ * Coroutine 协程- 线程框架 - 非阻塞式挂起
  * 单线程模式下模拟多线程编程的效果；
  * 调度过程不需要操作系统参与，使得协程并发效率出奇的高
  */
