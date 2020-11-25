@@ -5,11 +5,15 @@ import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
+import com.allever.app.kotlin.coroutine.retrofit.ServiceController
+import com.allever.app.kotlin.coroutine.retrofit.TranslateApiService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
+    private val mJob = Job()
+    private val mMainCoroutine = CoroutineScope(Dispatchers.Main + mJob)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -17,7 +21,18 @@ class MainActivity : AppCompatActivity() {
         ivImageView.load(R.mipmap.ic_launcher)
 
 
-        coroutineTest()
+//        coroutineTest()
+        coroutineTest2()
+    }
+
+    private fun coroutineTest2() {
+        mMainCoroutine.launch {
+            val apiService = ServiceController.create(TranslateApiService::class.java)
+            val response = apiService.translate("你好")
+            if (response.isSuccessful) {
+                tvTextView.text = response.body()?.toString()
+            }
+        }
     }
 
     private fun coroutineTest() {

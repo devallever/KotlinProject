@@ -7,7 +7,7 @@ fun main() {
     val garfieldCatList = mutableListOf<Cat>()
 
     var catListOut: MutableList<out Cat> = catList
-    catListOut = animalList
+//    catListOut = animalList
     catListOut = garfieldCatList
 
     var catListIn: MutableList<in Cat>
