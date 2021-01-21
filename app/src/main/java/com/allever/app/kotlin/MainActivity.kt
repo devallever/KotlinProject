@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
 //        coroutineTest()
-        coroutineTest2()
+//        coroutineTest2()
     }
 
     private fun coroutineTest2() {
