@@ -11,6 +11,7 @@ class StaticInnerSingleton {
     }
 
     private object Holder {
+        @JvmStatic
         val INS = StaticInnerSingleton()
     }
 }

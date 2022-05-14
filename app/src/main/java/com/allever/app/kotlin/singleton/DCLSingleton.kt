@@ -1,8 +1,6 @@
 package com.allever.app.kotlin.singleton
 
-import android.content.Context
-
-class DCLSingleton(context: Context) {
+class DCLSingleton() {
 
     fun method() {
         println("DCLSingleton")
@@ -12,14 +10,15 @@ class DCLSingleton(context: Context) {
         @Volatile
         private var INS: DCLSingleton? = null
 
-        fun getIns(context: Context): DCLSingleton {
+        @JvmStatic
+        fun getIns(): DCLSingleton {
             val instance = INS
             if (instance != null) {
                 return instance
             }
 
             return synchronized(this) {
-                INS ?: DCLSingleton(context)
+                INS ?: DCLSingleton()
             }
         }
     }
